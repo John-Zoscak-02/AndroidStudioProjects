@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Color_Estimate</string>
+    <string name="header">Color Estimating Game</string>
+    <string name="gameHeader">Enter Your Guesses:</string>
+    <string name="button1">Begin!</string>
+    <string name="button2">Current Results</string>
+    <string name="button3">Submit</string>
+    <string name="button4">Main Menu</string>
+    <string name="button5">Next</string>
+    <string name="hintRed">Enter Red (0 - 255)</string>
+    <string name="hintGreen">Enter Green (0 - 255)</string>
+    <string name="hintBlue">Enter Blue (0 - 255)</string>
+</resources>

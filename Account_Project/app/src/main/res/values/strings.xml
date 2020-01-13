@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Account_Project</string>
+    <string name="UpdateDescription">Update Your Account Description Here!</string>
+    <string name="Return">Return</string>
+    <string name="UpdateAccount">Update Your Account!</string>
+    <string name="Account_Info">Log in</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="submit">Submit</string>
+    <string name="save">Save</string>
+    <string name="New">Create New Account</string>
+</resources>
