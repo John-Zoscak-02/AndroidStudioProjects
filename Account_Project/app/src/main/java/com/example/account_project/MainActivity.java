@@ -1,5 +1,7 @@
 package com.example.account_project;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordText;
 
     private Account[] accounts;
+    
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
