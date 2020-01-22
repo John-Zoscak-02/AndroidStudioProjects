@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UpdateAccount">
+    tools:context=".UpdateAccountActivity">
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="300dp"
-        android:layout_height="600dp"
+        android:layout_height="500dp"
         android:layout_marginBottom="64dp"
         android:background="@drawable/back"
         android:hint="@string/UpdateDescription"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Return"

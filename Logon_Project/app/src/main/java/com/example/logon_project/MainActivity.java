@@ -5,16 +5,23 @@ import com.google.gson.GsonBuilder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String FILE_NAME = "data.json";
 
     private Button submitButton;
     private Button createButton;
@@ -23,30 +30,79 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordText;
 
     private Account[] accounts;
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Gson gson = new GsonBuilder()
+        gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
         accounts = null;
 
         try {
-            FileReader fileReader = new FileReader("./app/info.json");
-            accounts = gson.fromJson( fileReader, Account[].class);
-            fileReader.close();
+
+            FileInputStream fileInputStream = openFileInput( FILE_NAME );
+            int size = fileInputStream.available();
+            byte[] buffer = new byte[size];
+            fileInputStream.read( buffer );
+            String json = new String(buffer);
+            Log.i("Json File", json );
+            accounts = gson.fromJson( json, Account[].class );
+            Log.println(Log.WARN, "json file: ", json);
+
         }
         catch ( Exception e ) {
             e.printStackTrace();
+            try {
+                Account[] a = {new Account("default","default","default")};
+                String newJson = gson.toJson( a, Account[].class );
+                FileOutputStream fileOutputStream = openFileOutput( MainActivity.FILE_NAME, Context.MODE_PRIVATE);
+                fileOutputStream.write( newJson.getBytes() );
+                fileOutputStream.close();
+                Log.i("Made Default", newJson);
+            }
+            catch ( Exception error ) {
+                error.printStackTrace();
+            }
         }
 
         accountText = findViewById( R.id.editText2 );
         passwordText = findViewById( R.id.editText3 );
         createSubmitButton();
         createNewAccountButton();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        try {
+
+            FileInputStream fileInputStream = openFileInput( FILE_NAME );
+            int size = fileInputStream.available();
+            byte[] buffer = new byte[size];
+            fileInputStream.read( buffer );
+            String json = new String(buffer);
+            //Log.i("Json File", json );
+            accounts = gson.fromJson( json, Account[].class );
+
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+            try {
+                Account[] a = {new Account("default", "default", "default")};
+                String newJson = gson.toJson(a, Account[].class);
+                FileOutputStream fileOutputStream = openFileOutput(MainActivity.FILE_NAME, Context.MODE_PRIVATE);
+                fileOutputStream.write(newJson.getBytes());
+                fileOutputStream.close();
+                //Log.i("Made Default", newJson);
+            } catch (Exception error) {
+                error.printStackTrace();
+            }
+        }
     }
 
     private void createSubmitButton() {
@@ -85,4 +141,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }

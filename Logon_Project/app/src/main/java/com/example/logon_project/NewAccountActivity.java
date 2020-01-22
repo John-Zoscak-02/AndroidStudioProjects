@@ -2,6 +2,7 @@ package com.example.logon_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 
 public class NewAccountActivity extends AppCompatActivity {
@@ -43,13 +47,13 @@ public class NewAccountActivity extends AppCompatActivity {
                         .create();
 
                 try {
-                    Account account = new Account( username.getText().toString(), CryptWithMD5.cryptWithMD5(password.getText().toString()),
-                            data.getText().toString());
-                    FileWriter fileWriter = new FileWriter("./src/info.json");
-                    String json = gson.toJson(account);
-                    Log.println(Log.WARN, "json file: ", json);
-                    fileWriter.append( json );
-                    fileWriter.close();
+                    Account[] newAccounts = {new Account( username.getText().toString(), CryptWithMD5.cryptWithMD5(password.getText().toString()), data.getText().toString())};
+
+                    String newJson = gson.toJson(newAccounts, Account[].class );
+                    //Log.i("Json File", newJson );
+                    FileOutputStream fileOutputStream = openFileOutput( MainActivity.FILE_NAME, Context.MODE_PRIVATE );
+                    fileOutputStream.write( newJson.getBytes() );
+                    fileOutputStream.close();
                 }
                catch ( Exception e ) {
                     e.printStackTrace();
