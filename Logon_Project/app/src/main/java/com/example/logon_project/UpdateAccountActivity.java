@@ -48,6 +48,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
             String json = new String(buffer);
             Log.i("Json File", json );
             accounts = gson.fromJson( json, Account[].class );
+            fileInputStream.close();
 
             Intent intent = getIntent();
             String username = intent.getStringExtra( "username" );

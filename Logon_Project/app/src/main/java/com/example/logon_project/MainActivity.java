@@ -40,19 +40,14 @@ public class MainActivity extends AppCompatActivity {
         gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
-        accounts = null;
-
         try {
-
             FileInputStream fileInputStream = openFileInput( FILE_NAME );
             int size = fileInputStream.available();
             byte[] buffer = new byte[size];
             fileInputStream.read( buffer );
             String json = new String(buffer);
-            Log.i("Json File", json );
             accounts = gson.fromJson( json, Account[].class );
-            Log.println(Log.WARN, "json file: ", json);
-
+            fileInputStream.close();
         }
         catch ( Exception e ) {
             e.printStackTrace();
@@ -62,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 FileOutputStream fileOutputStream = openFileOutput( MainActivity.FILE_NAME, Context.MODE_PRIVATE);
                 fileOutputStream.write( newJson.getBytes() );
                 fileOutputStream.close();
-                Log.i("Made Default", newJson);
             }
             catch ( Exception error ) {
                 error.printStackTrace();
@@ -88,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             String json = new String(buffer);
             //Log.i("Json File", json );
             accounts = gson.fromJson( json, Account[].class );
+            fileInputStream.close();
 
         }
         catch ( Exception e ) {
@@ -95,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Account[] a = {new Account("default", "default", "default")};
                 String newJson = gson.toJson(a, Account[].class);
-                FileOutputStream fileOutputStream = openFileOutput(MainActivity.FILE_NAME, Context.MODE_PRIVATE);
+                FileOutputStream fileOutputStream = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
                 fileOutputStream.write(newJson.getBytes());
                 fileOutputStream.close();
                 //Log.i("Made Default", newJson);
