@@ -58,10 +58,31 @@ public class NewAccountActivity extends AppCompatActivity {
                     try {
                         Account[] newAccounts = {new Account( username.getText().toString(), CryptWithMD5.cryptWithMD5(password.getText().toString()), data.getText().toString())};
 
-                        String newJson = gson.toJson(newAccounts, Account[].class );
-                        FileOutputStream fileOutputStream = openFileOutput( MainActivity.FILE_NAME, Context.MODE_PRIVATE );
-                        fileOutputStream.write( newJson.getBytes() );
-                        fileOutputStream.close();
+                        FileInputStream fileInputStream = openFileInput( MainActivity.FILE_NAME );
+                        int size = fileInputStream.available();
+                        byte[] buffer = new byte[size];
+                        fileInputStream.read( buffer );
+                        String json = new String(buffer);
+                        Account[] accounts = gson.fromJson( json, Account[].class );
+                        fileInputStream.close();
+
+                        boolean acceptableUsername = true;
+                        for ( Account a : accounts ) {
+                            if ( a.getUsername().equals(username.getText().toString()) ) {
+                                acceptableUsername = false;
+                            }
+                        }
+
+                        if ( acceptableUsername ) {
+                            String newJson = gson.toJson(newAccounts, Account[].class );
+                            FileOutputStream fileOutputStream = openFileOutput( MainActivity.FILE_NAME, Context.MODE_PRIVATE );
+                            fileOutputStream.write( newJson.getBytes() );
+                            fileOutputStream.close();
+                        }
+                        else {
+                            Toast.makeText( getApplicationContext(), "That username is already taken", Toast.LENGTH_LONG).show();
+                        }
+
                     }
                     catch ( Exception e ) {
                         e.printStackTrace();

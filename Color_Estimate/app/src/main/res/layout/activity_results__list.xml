@@ -7,8 +7,7 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="575dp"
-        android:layout_weight="1">
+        android:layout_height="400dp">
 
     </ListView>
 
@@ -16,7 +15,6 @@
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_weight="5"
         android:background="@drawable/back"
         android:gravity="center" />
 
@@ -24,6 +22,5 @@
         android:id="@+id/button6"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_weight="15"
         android:text="@string/button4" />
 </LinearLayout>

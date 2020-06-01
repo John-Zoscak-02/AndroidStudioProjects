@@ -28,6 +28,7 @@
         android:background="@drawable/back"
         android:hint="@string/UpdateDescription"
         android:inputType="textPersonName"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

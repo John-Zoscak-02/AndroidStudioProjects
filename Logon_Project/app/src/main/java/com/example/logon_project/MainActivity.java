@@ -120,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-                Toast.makeText( getApplicationContext(), "Username or password is incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText( getApplicationContext(), "Username or password is incorrect, " +
+                        "Press create new account is you want to create a new account", Toast.LENGTH_SHORT).show();
                 passwordText.setText( "" );
             }
         });
